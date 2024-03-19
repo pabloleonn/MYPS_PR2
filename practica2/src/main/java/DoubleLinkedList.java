@@ -1,3 +1,10 @@
+<<<<<<< Updated upstream:practica2/src/main/java/DoubleLinkedList.java
+=======
+package org.mps.deque;
+
+import java.util.LinkedList;
+
+>>>>>>> Stashed changes:practica2/src/main/org/mps/deque/DoubleLinkedList.java
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     private LinkedNode<T> first;
@@ -13,11 +20,15 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public void prepend(T value) {
         LinkedNode<T> newNode = new LinkedNode<T>(value, null, first);
+        LinkedNode<T> oldFirst = first;
+
+        this.first = newNode;
+        this.first.setNext(oldFirst);
     }
 
     @Override
     public void append(T value) {
-        // TODO
+        LinkedNode<T> newNode = new LinkedNode<T>();
     }
 
     @Override
