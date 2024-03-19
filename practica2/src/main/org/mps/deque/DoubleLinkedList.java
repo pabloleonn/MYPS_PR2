@@ -7,12 +7,14 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     private int size;
 
     public DoubleLinkedList() {
-        // TODO
+        this.first = new LinkedNode<T>(null, null, null);
+        this.last = new LinkedNode<T>(null, null, null);
+        this.size = 0;
     }
 
     @Override
     public void prepend(T value) {
-        // TODO
+        LinkedNode<T> newNode = new LinkedNode<T>(value, null, first);
     }
 
     @Override
