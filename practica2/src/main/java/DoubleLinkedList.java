@@ -42,28 +42,39 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void deleteFirst() {
-        if(this.size()<2){
+        if(this.size<1){
+            new DoubleLinkedQueueException("La lista está vacía");
+        }else if(this.size()==1){
             this.first = null;
+            this.last = null;
         }else if(this.size()==2){
             this.first = this.last;
+            this.size = 1;
+        }else{
+            LinkedNode<T> aux = first.getNext();
+            this.first = null;
+            this.first = aux;
+            this.size--;
         }
-        LinkedNode<T> aux = first.getNext();
-        this.first = null;
-        this.first = aux;
-        this.size--;
     }
 
     @Override
     public void deleteLast() {
-        if(this.size()<2){
+        if(this.size<1){
+            new DoubleLinkedQueueException("La lista está vacía");
+        }else if(this.size()==1){
             this.last = null;
+            this.first = null;
+            this.size = 0;
         }else if(this.size()==2){
             this.last = this.first;
+            this.size = 1;
+        }else{
+            LinkedNode<T> aux = last.getPrevious();
+            this.last = null;
+            this.last = aux;
+            this.size--;
         }
-        LinkedNode<T> aux = last.getPrevious();
-        this.last = null;
-        this.last = aux;
-        this.size--;
     }
 
     @Override
