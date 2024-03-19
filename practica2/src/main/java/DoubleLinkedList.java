@@ -1,10 +1,4 @@
-<<<<<<< Updated upstream:practica2/src/main/java/DoubleLinkedList.java
-=======
-package org.mps.deque;
 
-import java.util.LinkedList;
-
->>>>>>> Stashed changes:practica2/src/main/org/mps/deque/DoubleLinkedList.java
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     private LinkedNode<T> first;
@@ -12,50 +6,78 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     private int size;
 
     public DoubleLinkedList() {
-        this.first = new LinkedNode<T>(null, null, null);
-        this.last = new LinkedNode<T>(null, null, null);
+        this.first = null;
+        this.last = null;
         this.size = 0;
     }
 
     @Override
     public void prepend(T value) {
-        LinkedNode<T> newNode = new LinkedNode<T>(value, null, first);
-        LinkedNode<T> oldFirst = first;
+        if(this.size == 0) {
+            this.first = new LinkedNode<T>(value, null, null);
+            this.last = this.first;
+        } else {
+            LinkedNode<T> newNode = new LinkedNode<T>(value, null, first);
+            LinkedNode<T> oldFirst = first;
 
-        this.first = newNode;
-        this.first.setNext(oldFirst);
+            this.first = newNode;
+            this.first.setNext(oldFirst);
+        }   
+        this.size++;
     }
 
     @Override
     public void append(T value) {
-        LinkedNode<T> newNode = new LinkedNode<T>();
+        if(this.size == 0) {
+            this.first = new LinkedNode<T>(value, null, null);
+        } else {
+            LinkedNode<T> newNode = new LinkedNode<T>(value, last, null);
+            LinkedNode<T> oldLast = last;
+
+            this.last = newNode;
+            this.last.setPrevious(oldLast);
+        }
+        this.size++;
     }
 
     @Override
     public void deleteFirst() {
-        // TODO
+        if(this.size()<2){
+            this.first = null;
+        }else if(this.size()==2){
+            this.first = this.last;
+        }
+        LinkedNode<T> aux = first.getNext();
+        this.first = null;
+        this.first = aux;
+        this.size--;
     }
 
     @Override
     public void deleteLast() {
-        // TODO
+        if(this.size()<2){
+            this.last = null;
+        }else if(this.size()==2){
+            this.last = this.first;
+        }
+        LinkedNode<T> aux = last.getPrevious();
+        this.last = null;
+        this.last = aux;
+        this.size--;
     }
 
     @Override
     public T first() {
-        // TODO
-        return null;
+        return this.first.getItem();
     }
 
     @Override
     public T last() {
-        // TODO
-        return null;
+        return this.last.getItem();
     }
 
     @Override
     public int size() {
-        // TODO
-        return 0;
+        return this.size;
     }
 }
