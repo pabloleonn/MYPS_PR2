@@ -88,4 +88,22 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     public int size() {
         return this.size;
     }
+
+    @Override
+    public T get(int index) {
+        LinkedNode<T> current = null;
+        if(index < 0 || index >= this.size) {
+            throw new DoubleLinkedQueueException("Index out of bounds");
+        } else {
+            int i = 0;
+            current = this.first;
+            while(i < index) {
+                current = current.getNext();
+                i++;
+            }
+        }
+        return current.getItem();
+    }
+
+    
 }
