@@ -1,5 +1,3 @@
-package org.mps.deque;
-
 /**
  * Class representing a node of a double-ended queue (deque). Each node has references to
  * the next and previous nodes.
