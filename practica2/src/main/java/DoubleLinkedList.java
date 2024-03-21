@@ -59,6 +59,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
         }else{
             LinkedNode<T> aux = first.getNext();
             this.first = aux;
+            this.first.setPrevious(null);
         }
         this.size--;
     }
@@ -76,6 +77,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             LinkedNode<T> aux = last.getPrevious();
             this.last = null;
             this.last = aux;
+            this.last.setNext(null);
         }
         this.size--;
     }
@@ -130,7 +132,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             throw new DoubleLinkedQueueException("No esta");
         } else {
             LinkedNode<T> current = this.first;
-            LinkedNode<T> previous = null;
+            LinkedNode<T> previous = current; 
             LinkedNode<T> next = current.getNext();
             while(current != null) {
                 if(current.getItem() != value) {
@@ -140,11 +142,14 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
                 } else {
                     if(current == this.first) {
                         this.deleteFirst();
+                        current = null;
                     } else if(current == this.last) {
                         this.deleteLast();
+                        current = null;
                     } else {
                         previous.setNext(next);
                         next.setPrevious(previous);
+                        current = null;
                         this.size--;
                     }
                     }
@@ -157,6 +162,8 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     public void sort(Comparator<? super T> comparator){
         if(first!=null){
             quickSortRecursive(first, last, comparator);
+        } else {
+            throw new DoubleLinkedQueueException("Lista vacía");
         }
     }
 

@@ -2,6 +2,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Comparator;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -179,6 +182,87 @@ public class DoubleLinkedListTest {
         list.append(1);
         list.append(2);
         assertTrue(list.contains(2));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con un elemento e intento eliminar uno que no está retorna excepción")
+    public void remove_ifElementIsNotInList_throwException() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        assertThrows(DoubleLinkedQueueException.class, () -> list.remove(2));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con 3 elementos e intento eliminar el segundo se eliminará")
+    public void remove_ThreeElementsInListAndRemoveSecond_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.remove(2);
+        assertFalse(list.contains(2));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con 3 elementos e intento eliminar el primero se eliminará")
+    public void remove_ThreeElementsInListAndRemoveFirst_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.remove(1);
+        assertFalse(list.contains(1));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con 3 elementos e intento eliminar el último se eliminará")
+    public void remove_ThreeElementsInListAndRemoveLast_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.append(2);
+        list.append(3);
+        list.remove(3);
+        assertFalse(list.contains(3));
+    }
+
+    @Test
+    @DisplayName("Si ordeno una lista vacía retorna excepción")
+    public void sort_ifEmptyList_throwException() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        assertThrows(DoubleLinkedQueueException.class, () -> list.sort(Comparator.naturalOrder()));
+    }
+
+    @Test
+    @DisplayName("Si ordeno una lista con 1 elemento no cambia")
+    public void sort_ifOneElementInList_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.sort(Comparator.naturalOrder());
+        assertEquals(list.first(), 1);
+    }
+
+    @Test
+    @DisplayName("Si ordeno una lista con 2 elementos los ordena")
+    public void sort_ifTwoElementsInList_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(2);
+        list.append(1);
+        list.sort(Comparator.naturalOrder());
+        assertEquals(list.first(), 1);
+        assertEquals(list.last(), 2);
+    }
+
+    @Test
+    @DisplayName("Si ordeno una lista con 3 elementos los ordena")
+    public void sort_ifThreElementsInList_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(3);
+        list.append(1);
+        list.append(2);
+        list.sort(Comparator.naturalOrder());
+        assertEquals(list.first(), 1);
+        assertEquals(list.get(1), 2);
+        assertEquals(list.last(), 3);
     }
 }
 
