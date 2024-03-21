@@ -139,5 +139,46 @@ public class DoubleLinkedListTest {
         list.append(2);
         assertEquals(list.size(), 2);
     }
+
+    @Test
+    @DisplayName("Si creo una lista e intento obtener un elemento en posicion negativa retorna excepción")
+    public void get_ifNegativeIndex_throwException() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        assertThrows(DoubleLinkedQueueException.class, () -> list.get(-1));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista e intento obtener un elemento en una posición mayor al tamaño retorna excepción")
+    public void get_ifIndexGreaterThanSize_throwException() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        assertThrows(DoubleLinkedQueueException.class, () -> list.get(1));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con dos elementos y obtengo el primero, el primero es el primero")
+    public void get_ifTwoElementInListGetFirst_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.append(2);
+        assertEquals(list.get(0), 1);
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con dos elementos y consulto si está uno diferente retorna falso")
+    public void contains_ifOneElementInListWithDifferentElement_returnFalse() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.append(2);
+        assertFalse(list.contains(3));
+    }
+
+    @Test
+    @DisplayName("Si creo una lista con dos elementos y consulto si está retorna verdadero")
+    public void contains_ifOneElementInListAndContains_returnTrue() {
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<Integer>();
+        list.append(1);
+        list.append(2);
+        assertTrue(list.contains(2));
+    }
 }
 
